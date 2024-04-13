@@ -14,15 +14,15 @@ let flowfield = [];
 let cols, rows;
 let prevFrameStop = 0;
 function setup() {
-    createCanvas(800, 800);
+    createCanvas(windowWidth, windowHeight);
 
     createParticles();
 
     // for (let i = 0; i < 2; i++) {
     //     magnets.push(new Magnet(random(80, width - 80), random(80, height - 80), random(TWO_PI), random(1, 10) * 0.1, random() > 0.5));
     // }
-    magnets.push(new Magnet(400, 200, PI, 1, false));
-    magnets.push(new Magnet(400, 600, 0, 1, true));
+    magnets.push(new Magnet(width / 2, height / 3, PI, 1, false));
+    magnets.push(new Magnet(width / 2, 2 * height / 3, 0, 1, true));
     background(51);
 }
 
@@ -46,15 +46,15 @@ function createParticles() {
     particles = [];
     for (let i = 0; i < 200; i++) {
         for (let j = 0; j < 200; j++) {
-            particles.push(new Particle(i * 4, j * 4, random() > 0.5));
+            particles.push(new Particle(i * windowWidth / 200, j * windowHeight / 200, random() > 0.5));
         }
     }
 }
 
 function drawFieldVecs() {
     let spacing = scl; // Space between field lines
-    cols = floor(width / spacing);
-    rows = floor(height / spacing);
+    cols = ceil(width / spacing);
+    rows = ceil(height / spacing);
     flowfield = new Array(cols * rows);
 
     for (let i = 0; i < cols; i++) {
